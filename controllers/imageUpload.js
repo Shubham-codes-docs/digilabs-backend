@@ -1,3 +1,4 @@
+const { json } = require("express");
 const Logo = require("../models/logo");
 
 exports.changeImage = async (req, res, next) => {
@@ -21,4 +22,9 @@ exports.changeImage = async (req, res, next) => {
     await newLogo.save();
     res.status(201).json({ msg: "Logo Created", success: true });
   }
+};
+
+exports.getLogo = async (req, res, next) => {
+  const logo = await Logo.findOne();
+  res.status(200).json({ logo, success: true });
 };
