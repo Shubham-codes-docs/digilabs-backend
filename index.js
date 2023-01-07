@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-dotenv.config();
 const multer = require("multer");
 const aws = require("aws-sdk");
 const multer_s3 = require("multer-s3");
@@ -12,6 +11,19 @@ const headingRoute = require("./routes/heading");
 const clickRoute = require("./routes/click");
 
 const app = express();
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "OPTIONS,GET,POST,PUT,PATCH,DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+  next();
+});
+dotenv.config();
 app.use(cors());
 
 app.use((error, req, res, next) => {
