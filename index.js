@@ -71,9 +71,6 @@ app.put(
   "/api/upload-image",
   multer({ storage: multers3Config, fileFilter: filefilter }).single("image"),
   (req, res) => {
-    if (!req.file) {
-      return res.status(200).json({ msg: "No file Chosen" });
-    }
     res.status(200).json({ file: req.file.key, success: true });
   }
 );
